@@ -19,8 +19,11 @@ jobs:
     runs-on: windows-2019
 
     steps:
-      - uses: actions/checkout@v1
-
+      - name: Checkout code
+        uses: actions/checkout@v1
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
+          
       - name: 下载submodule源码
         run: mv -Force .gitmodules_github .gitmodules && git submodule sync && git submodule update --init
 
